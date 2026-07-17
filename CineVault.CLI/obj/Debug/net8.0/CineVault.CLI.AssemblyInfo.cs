@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CineVault.CLI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26adac76bf63b0f5641705efb8dec70237d18971")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9891e734f6259ce43d3d5bbe155d0d1ff78d72d")]
 [assembly: System.Reflection.AssemblyProductAttribute("CineVault.CLI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CineVault.CLI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
