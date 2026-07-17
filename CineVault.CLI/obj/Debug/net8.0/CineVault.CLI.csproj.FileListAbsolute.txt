@@ -1,0 +1,15 @@
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/bin/Debug/net8.0/CineVault.CLI
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/bin/Debug/net8.0/CineVault.CLI.deps.json
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/bin/Debug/net8.0/CineVault.CLI.runtimeconfig.json
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/bin/Debug/net8.0/CineVault.CLI.dll
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/bin/Debug/net8.0/CineVault.CLI.pdb
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.GeneratedMSBuildEditorConfig.editorconfig
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.AssemblyInfoInputs.cache
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.AssemblyInfo.cs
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.csproj.CoreCompileInputs.cache
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.sourcelink.json
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.dll
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/refint/CineVault.CLI.dll
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.pdb
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/CineVault.CLI.genruntimeconfig.cache
+/home/lolothemisfit/Documents/cinevault-cli/CineVault.CLI/obj/Debug/net8.0/ref/CineVault.CLI.dll
