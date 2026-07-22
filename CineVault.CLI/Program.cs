@@ -1,14 +1,15 @@
 ﻿using CineVault.CLI.Menus;
 using CineVault.CLI.Services;
-
+using CineVault.CLI.Services.Search;
 namespace CineVault.CLI;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         Console.Title = "CineVault CLI";
         MovieService movieService = new();
+        MovieSearchService movieSearchService = new(movieService);
 
         bool isRunning = true;
 
@@ -35,7 +36,7 @@ public class Program
             switch (choice)
             {
                 case "1":
-                    MovieMenu.Show(movieService);
+                    await MovieMenu.Show(movieService);
                     break;
 
                 case "2":

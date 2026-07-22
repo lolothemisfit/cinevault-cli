@@ -47,6 +47,21 @@ public static class ConsoleInput
         }
     }
 
+    public static int ReadInt(string prompt, int min, int max)
+    {
+        while (true)
+        {
+            int value = ReadInt(prompt);
+
+            if (value >= min && value <= max)
+            {
+                return value;
+            }
+
+            Console.WriteLine($"Please enter a number between {min} and {max}.");
+        }
+    }
+    
     public static double ReadDouble(string prompt)
     {
         while (true)
