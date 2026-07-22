@@ -25,7 +25,8 @@ public static class MovieMenu
             Console.WriteLine("3. Search My Movies");
             Console.WriteLine("4. Search Movies Online");
             Console.WriteLine("5. Edit Movie");
-            Console.WriteLine("6. Back");
+            Console.WriteLine("6. Delete Movie");
+            Console.WriteLine("7. Back");
             Console.WriteLine();
 
             Console.Write("Select an option: ");
@@ -50,11 +51,15 @@ public static class MovieMenu
                     await SearchMoviesOnline(movieService, new TmdbService());
                     break;
 
-                // case "5":
-                //     EditMovie(movieService);
-                //     break;
-
+                case "5":
+                    EditMovie(movieService);
+                    break;
+                
                 case "6":
+                    DeleteMovie(movieService);
+                    break;
+
+                case "7":
                     isRunning = false;
                     Console.Clear();
                     break;
@@ -241,6 +246,89 @@ public static class MovieMenu
         {
             Console.WriteLine("Movie not added.");
         }
+        Pause();
+    }
+
+    public static void EditMovie(MovieService movieService)
+    {
+        Console.Clear();
+
+        Console.WriteLine("========== EDIT MOVIE ==========");
+        Console.WriteLine();
+
+        List<Movie> movies = movieService.GetAllMovies();
+
+        for (int i = 0; i < movies.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {movies[i].Title}");
+        }
+
+        Console.WriteLine();
+
+        int choice = ConsoleInput.ReadInt(
+            $"Select a movie (1-{movies.Count}): ",
+            1,
+            movies.Count
+        );
+
+        Movie selectedMovie = movies[choice - 1];
+
+        Console.WriteLine();
+        Console.WriteLine($"Movie: {selectedMovie.Title}");
+        Console.WriteLine($"Current watched status: {(selectedMovie.Watched ? "Yes" : "No")}");
+
+        Console.WriteLine();
+
+        selectedMovie.Watched = ConsoleInput.ReadYesNo(
+            "Have you watched this movie? (Y/N): "
+        );
+
+        movieService.UpdateMovie(selectedMovie);
+
+        Console.WriteLine();
+        Console.WriteLine("Movie updated successfully!");
+        Pause();
+
+    }
+
+    public static void DeleteMovie(MovieService movieService)
+    {
+        Console.Clear();
+
+        Console.WriteLine("========== DELETE MOVIE ==========");
+        Console.WriteLine();
+
+        List<Movie> movies = movieService.GetAllMovies();
+
+        for (int i = 0; i < movies.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {movies[i].Title}");
+        }
+
+        Console.WriteLine();
+
+        int choice = ConsoleInput.ReadInt(
+            $"Select a movie to delete (1-{movies.Count}): ",
+            1,
+            movies.Count
+        );
+
+        Movie selectedMovie = movies[choice - 1];
+
+        bool confirmDelete = ConsoleInput.ReadYesNo(
+            $"Are you sure you want to delete '{selectedMovie.Title}'? (Y/N): "
+        );
+
+        if (confirmDelete)
+        {
+            movieService.DeleteMovie(selectedMovie.Id);
+            Console.WriteLine("Movie deleted successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Deletion cancelled.");
+        }
+
         Pause();
     }
 

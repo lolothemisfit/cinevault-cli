@@ -11,6 +11,7 @@ public class MovieService {
 
     private void seedMovies() {
         _movies.Add(new Movie {
+            Id = 1,
             Title = "Inception",
             Genre = "Science Fiction",
             ReleaseYear = 2010,
@@ -21,6 +22,7 @@ public class MovieService {
         });
 
         _movies.Add(new Movie {
+            Id = 2,
             Title = "The Shawshank Redemption",
             Genre = "Drama",
             ReleaseYear = 1994,
@@ -31,6 +33,7 @@ public class MovieService {
         }); 
 
         _movies.Add(new Movie {
+            Id = 3,
             Title = "The Godfather",
             Genre = "Crime",
             ReleaseYear = 1972,
@@ -41,6 +44,7 @@ public class MovieService {
         });
 
         _movies.Add(new Movie {
+            Id = 4,
             Title = "The Dark Knight",
             Genre = "Action",
             ReleaseYear = 2008,
@@ -51,6 +55,7 @@ public class MovieService {
         });
 
         _movies.Add(new Movie {
+            Id = 5,
             Title = "Pulp Fiction",
             Genre = "Crime",
             ReleaseYear = 1994,
@@ -61,12 +66,34 @@ public class MovieService {
         });
     }
 
+    public Movie? GetMovieById(int id) {
+        return _movies.FirstOrDefault(m => m.Id == id);
+    }
+
     public List<Movie> GetAllMovies() {
         return _movies;
     }
 
     public void AddMovie(Movie movie) {
         _movies.Add(movie);
+    }
+
+    public void UpdateMovie(Movie movie)
+    {
+        Movie? existingMovie = GetMovieById(movie.Id);
+
+        if (existingMovie != null)
+        {
+            existingMovie.Watched = movie.Watched;
+        }
+    }
+
+    public void DeleteMovie(int id) {
+        Movie? movieToDelete = GetMovieById(id);
+
+        if (movieToDelete != null) {
+            _movies.Remove(movieToDelete);
+        }
     }
 
 }
