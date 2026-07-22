@@ -1,4 +1,5 @@
 ﻿using CineVault.CLI.Menus;
+using CineVault.CLI.Services;
 
 namespace CineVault.CLI;
 
@@ -7,6 +8,7 @@ public class Program
     public static void Main(string[] args)
     {
         Console.Title = "CineVault CLI";
+        MovieService movieService = new();
 
         bool isRunning = true;
 
@@ -22,39 +24,39 @@ public class Program
 
         Console.WriteLine();
         Console.WriteLine($"Hello, {name}!");
-
-        MainMenu.Show();
-        string? choice = Console.ReadLine();
-        Console.WriteLine();
-
         
-        switch (choice) {
-            case "1":
-                Console.WriteLine("Movies selected.");
-                break;
+        while (isRunning)
+        {
+            MainMenu.Show();
+            // Console.Clear();
 
-            case "2":
-                Console.WriteLine("TV Shows selected.");
-                break;
+            string? choice = Console.ReadLine();
 
-            case "3":
-                Console.WriteLine("Music selected.");
-                break;
+            switch (choice)
+            {
+                case "1":
+                    MovieMenu.Show(movieService);
+                    break;
 
-            case "4":
-                Console.WriteLine("Goodbye!");
-                isRunning = false;
-                break;
+                case "2":
+                    Console.WriteLine("TV Shows coming soon...");
+                    break;
 
-            default:
-                Console.WriteLine("Invalid option.");
-                break;
+                case "3":
+                    Console.WriteLine("Music coming soon...");
+                    
+                    break;
+
+                case "4":
+                    isRunning = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid option. Please select an option from 1 to 4.");
+                    continue;
+            }
         }
-        
-        if (isRunning) {
-            Console.WriteLine();
-            Console.Write("Please select an option (1-4): ");
-            Console.ReadKey();
-        }    
+
+        Console.WriteLine("Thanks for using CineVault!");
     }
 }
