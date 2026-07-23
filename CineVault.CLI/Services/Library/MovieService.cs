@@ -1,16 +1,17 @@
 using CineVault.CLI.Models;
+using CineVault.CLI.Services.Library;
 
 namespace CineVault.CLI.Services;
 
-public class MovieService {
-    private readonly List<Movie> _movies = new();
+public class MovieService : MediaService<Movie> {
+    
 
     public MovieService() {
         seedMovies();
     }
 
     private void seedMovies() {
-        _movies.Add(new Movie {
+        Add(new Movie {
             Id = 1,
             Title = "Inception",
             Genre = "Science Fiction",
@@ -21,7 +22,7 @@ public class MovieService {
             Watched = true
         });
 
-        _movies.Add(new Movie {
+        Add(new Movie {
             Id = 2,
             Title = "The Shawshank Redemption",
             Genre = "Drama",
@@ -32,7 +33,7 @@ public class MovieService {
             Watched = true
         }); 
 
-        _movies.Add(new Movie {
+        Add(new Movie {
             Id = 3,
             Title = "The Godfather",
             Genre = "Crime",
@@ -43,7 +44,7 @@ public class MovieService {
             Watched = true
         });
 
-        _movies.Add(new Movie {
+        Add(new Movie {
             Id = 4,
             Title = "The Dark Knight",
             Genre = "Action",
@@ -54,7 +55,7 @@ public class MovieService {
             Watched = true
         });
 
-        _movies.Add(new Movie {
+        Add(new Movie {
             Id = 5,
             Title = "Pulp Fiction",
             Genre = "Crime",
@@ -67,20 +68,20 @@ public class MovieService {
     }
 
     public Movie? GetMovieById(int id) {
-        return _movies.FirstOrDefault(m => m.Id == id);
+        return GetById(id);
     }
 
     public List<Movie> GetAllMovies() {
-        return _movies;
+        return GetAll();
     }
 
     public void AddMovie(Movie movie) {
-        _movies.Add(movie);
+        Add(movie);
     }
 
     public void UpdateMovie(Movie movie)
     {
-        Movie? existingMovie = GetMovieById(movie.Id);
+        Movie? existingMovie = GetById(movie.Id);
 
         if (existingMovie != null)
         {
@@ -89,10 +90,10 @@ public class MovieService {
     }
 
     public void DeleteMovie(int id) {
-        Movie? movieToDelete = GetMovieById(id);
+        Movie? movieToDelete = GetById(id);
 
         if (movieToDelete != null) {
-            _movies.Remove(movieToDelete);
+            Delete(id);
         }
     }
 
