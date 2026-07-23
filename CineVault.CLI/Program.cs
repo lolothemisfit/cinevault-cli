@@ -1,7 +1,9 @@
 ﻿using CineVault.CLI.Menus;
 using CineVault.CLI.Services;
 using CineVault.CLI.Services.Search;
+using CineVault.CLI.Models;
 namespace CineVault.CLI;
+
 
 public class Program
 {
@@ -9,7 +11,9 @@ public class Program
     {
         Console.Title = "CineVault CLI";
         MovieService movieService = new();
-        MovieSearchService movieSearchService = new(movieService);
+        TvSeriesService tvSeriesService = new();
+        // var movieSearchService = new MediaSearchService<Movie>(movieService);
+        // var tvSeriesSearchService = new MediaSearchService<TvSeries>(tvSeriesService);
 
         bool isRunning = true;
 
@@ -40,7 +44,7 @@ public class Program
                     break;
 
                 case "2":
-                    Console.WriteLine("TV Shows coming soon...");
+                    await TvSeriesMenu.Show(tvSeriesService);
                     break;
 
                 case "3":

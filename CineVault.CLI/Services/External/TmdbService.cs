@@ -32,7 +32,7 @@ public class TmdbService
         }
 
         string jsonResponse = await response.Content.ReadAsStringAsync();
-        TmdbSearchResponse? searchResponse = JsonSerializer.Deserialize<TmdbSearchResponse>(jsonResponse);
+        TmdbMovieSearchResponse? searchResponse = JsonSerializer.Deserialize<TmdbMovieSearchResponse>(jsonResponse);
 
         return searchResponse?.Results ?? [];
     }
@@ -94,6 +94,88 @@ public class TmdbService
             Director = director?.Name ?? "Unknown",
             Description = details.Overview,
             Rating = details.VoteAverage,
+            Watched = false
+        };
+    }
+
+    public async Task<List<TmdbTvSeries>> SearchTvSeriesAsync(string query)
+    {
+        var response = await _httpClient.GetAsync($"search/tv?api_key={_apiKey}&query={Uri.EscapeDataString(query)}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine($"Error: {response.StatusCode}");
+            return [];
+        }
+
+        string jsonResponse = await response.Content.ReadAsStringAsync();
+        TmdbTvSeriesSearchResponse? searchResponse = JsonSerializer.Deserialize<TmdbTvSeriesSearchResponse>(jsonResponse);
+
+        return searchResponse?.Results ?? [];
+    }
+    public async Task<TmdbTvSeriesDetails?> GetTvSeriesDetailsAsync(int tvId)
+    {
+        HttpResponseMessage response = await _httpClient.GetAsync(
+            $"tv/{tvId}?api_key={_apiKey}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        string json = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<TmdbTvSeriesDetails>(json);
+    }
+
+    public async Task<TmdbCredits?> GetTvSeriesCreditsAsync(int tvId)
+    {
+        HttpResponseMessage response = await _httpClient.GetAsync(
+            $"tv/{tvId}/credits?api_key={_apiKey}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        string json = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<TmdbCredits>(json);
+    }
+
+    public async Task<TvSeries?> GetTvSeriesAsync(int tvId)
+    {
+        TmdbTvSeriesDetails? details = await GetTvSeriesDetailsAsync(tvId);
+
+        if (details == null)
+        {
+            return null;
+        }
+
+        TmdbCredits? credits = await GetTvSeriesCreditsAsync(tvId);
+
+        if (credits == null)
+        {
+            return null;
+        }
+
+        TmdbDirector? director = credits.Crew.FirstOrDefault(person =>
+            person.Job.Equals("Director", StringComparison.OrdinalIgnoreCase));
+
+        string genres = string.Join(", ", details.Genres.Select(g => g.Name));
+
+        int releaseYear = DateTime.Parse(details.FirstAirDate).Year;
+
+        return new TvSeries
+        {
+            Title = details.Name,
+            Genre = genres,
+            ReleaseYear = releaseYear,
+            Director = director?.Name ?? "Unknown",
+            Description = details.Overview,
+            Rating = details.VoteAverage,
+            Seasons = details.NumberOfSeasons,
+            Episodes = details.NumberOfEpisodes,
             Watched = false
         };
     }

@@ -44,7 +44,7 @@ public static class MovieMenu
                     break;
 
                 case "3":
-                    SearchMovies(new MovieSearchService(movieService));
+                    SearchMovies(new MediaSearchService<Movie>(movieService));
                     break;
 
                 case "4":
@@ -89,24 +89,15 @@ public static class MovieMenu
         {
             foreach (Movie movie in movies)
             {
-                DisplayMovie(movie);
+                MediaMenuHelper.DisplayMedia(movie);
+                Console.WriteLine();
             }
         }
 
         Pause();
     }
 
-    private static void DisplayMovie(Movie movie)
-    {
-        Console.WriteLine($"Title: {movie.Title}");
-        Console.WriteLine($"Genre: {movie.Genre}");
-        Console.WriteLine($"Release Year: {movie.ReleaseYear}");
-        Console.WriteLine($"Director: {movie.Director}");
-        Console.WriteLine($"Description: {movie.Description}");
-        Console.WriteLine($"Rating: {movie.Rating}");
-        Console.WriteLine($"Watched: {(movie.Watched ? "Yes" : "No")}");
-        Console.WriteLine();
-    }
+    
     private static void AddMovie(MovieService movieService)
     {
         Console.Clear();
@@ -114,26 +105,13 @@ public static class MovieMenu
         Console.WriteLine("========== ADD MOVIE ==========");
         Console.WriteLine();
 
-        Console.Write("Title: ");
         string title = ConsoleInput.ReadString("Title: ");
-
-        Console.Write("Genre: ");
         string genre = ConsoleInput.ReadString("Genre: ");
-
-        Console.Write("Release Year: ");
         int releaseYear = ConsoleInput.ReadInt("Release Year: ");
-
-        Console.Write("Director: ");
         string director = ConsoleInput.ReadString("Director: ");
-
-        Console.Write("Description: ");
         string description = ConsoleInput.ReadString("Description: ");
-
-        Console.Write("Rating: ");
         double rating = ConsoleInput.ReadDouble("Rating: ");
-
-        Console.Write("Watched? (Y/N): ");
-        bool watched = ConsoleInput.ReadYesNo("Watched? (Y/N): ");
+        bool watched = ConsoleInput.ReadYesNo("Watched: ");
 
         Movie movie = new Movie
         {
@@ -154,7 +132,7 @@ public static class MovieMenu
         Pause();
     }
 
-    private static void SearchMovies(MovieSearchService movieSearchService)
+    private static void SearchMovies(MediaSearchService<Movie> movieSearchService)
     {
         Console.Clear();
 
@@ -163,6 +141,8 @@ public static class MovieMenu
 
         Console.Write("Enter search: ");
         string query = Console.ReadLine() ?? string.Empty;
+        
+        Console.WriteLine();
 
         List<Movie> results = movieSearchService.Search(query);
 
@@ -173,9 +153,10 @@ public static class MovieMenu
         else
         {
             Console.WriteLine($"Found {results.Count} movie(s):");
+            Console.WriteLine();
             foreach (Movie movie in results)
             {
-                DisplayMovie(movie);
+                MediaMenuHelper.DisplayMedia(movie);
             }
         }
 
@@ -210,11 +191,13 @@ public static class MovieMenu
         {
             Console.WriteLine($"{i + 1}. {results[i].Title} ({results[i].ReleaseDate})");
         }
+        Console.WriteLine();
         int choice = ConsoleInput.ReadInt(
             $"Select a movie (1-{results.Count}): ",
             1,
             results.Count
         );
+        Console.WriteLine();
 
         TmdbMovie selectedMovie = results[choice - 1];
         Movie? movie = await tmdbService.GetMovieAsync(selectedMovie.Id);
@@ -230,7 +213,8 @@ public static class MovieMenu
 
         Console.WriteLine("========== MOVIE DETAILS ==========");
         Console.WriteLine();
-        DisplayMovie(movie);
+        MediaMenuHelper.DisplayMedia(movie);
+        Console.WriteLine();
 
         bool addMovie = ConsoleInput.ReadYesNo(
             "Add this movie to your library? (Y/N): "
@@ -238,12 +222,15 @@ public static class MovieMenu
 
         if (addMovie)
         {
+            Console.WriteLine();
             movie.Watched = ConsoleInput.ReadYesNo("Have you watched this movie? (Y/N): ");
             movieService.AddMovie(movie);
+            Console.WriteLine();
             Console.WriteLine("Movie Added Successfully!");
         }
         else
         {
+            Console.WriteLine();
             Console.WriteLine("Movie not added.");
         }
         Pause();
@@ -256,37 +243,7 @@ public static class MovieMenu
         Console.WriteLine("========== EDIT MOVIE ==========");
         Console.WriteLine();
 
-        List<Movie> movies = movieService.GetAllMovies();
-
-        for (int i = 0; i < movies.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {movies[i].Title}");
-        }
-
-        Console.WriteLine();
-
-        int choice = ConsoleInput.ReadInt(
-            $"Select a movie (1-{movies.Count}): ",
-            1,
-            movies.Count
-        );
-
-        Movie selectedMovie = movies[choice - 1];
-
-        Console.WriteLine();
-        Console.WriteLine($"Movie: {selectedMovie.Title}");
-        Console.WriteLine($"Current watched status: {(selectedMovie.Watched ? "Yes" : "No")}");
-
-        Console.WriteLine();
-
-        selectedMovie.Watched = ConsoleInput.ReadYesNo(
-            "Have you watched this movie? (Y/N): "
-        );
-
-        movieService.UpdateMovie(selectedMovie);
-
-        Console.WriteLine();
-        Console.WriteLine("Movie updated successfully!");
+        MediaMenuHelper.EditMedia(movieService);
         Pause();
 
     }
@@ -298,36 +255,7 @@ public static class MovieMenu
         Console.WriteLine("========== DELETE MOVIE ==========");
         Console.WriteLine();
 
-        List<Movie> movies = movieService.GetAllMovies();
-
-        for (int i = 0; i < movies.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {movies[i].Title}");
-        }
-
-        Console.WriteLine();
-
-        int choice = ConsoleInput.ReadInt(
-            $"Select a movie to delete (1-{movies.Count}): ",
-            1,
-            movies.Count
-        );
-
-        Movie selectedMovie = movies[choice - 1];
-
-        bool confirmDelete = ConsoleInput.ReadYesNo(
-            $"Are you sure you want to delete '{selectedMovie.Title}'? (Y/N): "
-        );
-
-        if (confirmDelete)
-        {
-            movieService.DeleteMovie(selectedMovie.Id);
-            Console.WriteLine("Movie deleted successfully!");
-        }
-        else
-        {
-            Console.WriteLine("Deletion cancelled.");
-        }
+        MediaMenuHelper.DeleteMedia(movieService);
 
         Pause();
     }
