@@ -1,13 +1,31 @@
 using CineVault.CLI.Models;
 using CineVault.CLI.Services.Library;
+using CineVault.CLI.Services.Storage;
 
 namespace CineVault.CLI.Services;
 
 public class MovieService : MediaService<Movie> {
+
+private readonly JsonStorageService _storage = new JsonStorageService();
+    private const string FilePath = "CineVault.CLI/Data/movies.json";
     
 
-    public MovieService() {
-        seedMovies();
+    public MovieService()
+    {
+        List<Movie> movies = _storage.Load<Movie>(FilePath);
+
+        if (movies.Count == 0)
+        {
+            seedMovies();
+            SaveChanges();
+        }
+        else
+        {
+            foreach (Movie movie in movies)
+            {
+                Add(movie);
+            }
+        }
     }
 
     private void seedMovies() {
@@ -75,26 +93,27 @@ public class MovieService : MediaService<Movie> {
         return GetAll();
     }
 
-    public void AddMovie(Movie movie) {
+    public void AddMovie(Movie movie) 
+    {
+        movie.Id = GetNextId();
         Add(movie);
+        SaveChanges();
     }
 
     public void UpdateMovie(Movie movie)
     {
-        Movie? existingMovie = GetById(movie.Id);
-
-        if (existingMovie != null)
-        {
-            existingMovie.Watched = movie.Watched;
-        }
+        movie.Id = GetNextId();
+        Update(movie);
+        SaveChanges();
     }
 
     public void DeleteMovie(int id) {
-        Movie? movieToDelete = GetById(id);
-
-        if (movieToDelete != null) {
             Delete(id);
-        }
+            SaveChanges();
+    }
+    private void SaveChanges()
+    {
+        _storage.Save(FilePath, GetAll());
     }
 
 }

@@ -1,0 +1,86 @@
+[
+  {
+    "Seasons": 5,
+    "Episodes": 62,
+    "Id": 1,
+    "Title": "Breaking Bad",
+    "Genre": "Crime, Drama, Thriller",
+    "ReleaseYear": 2008,
+    "Director": "",
+    "Description": "A high school chemistry teacher turned methamphetamine producer navigates the dangers of the criminal underworld.",
+    "Rating": 9.5,
+    "Watched": true
+  },
+  {
+    "Seasons": 8,
+    "Episodes": 73,
+    "Id": 2,
+    "Title": "Game of Thrones",
+    "Genre": "Action, Adventure, Drama",
+    "ReleaseYear": 2011,
+    "Director": "",
+    "Description": "Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.",
+    "Rating": 9.3,
+    "Watched": true
+  },
+  {
+    "Seasons": 4,
+    "Episodes": 34,
+    "Id": 3,
+    "Title": "Stranger Things",
+    "Genre": "Drama, Fantasy, Horror",
+    "ReleaseYear": 2016,
+    "Director": "",
+    "Description": "A group of kids in a small town uncover a secret government experiment and a portal to a terrifying alternate dimension.",
+    "Rating": 8.8,
+    "Watched": true
+  },
+  {
+    "Seasons": 5,
+    "Episodes": 50,
+    "Id": 4,
+    "Title": "The Crown",
+    "Genre": "Drama, History",
+    "ReleaseYear": 2016,
+    "Director": "",
+    "Description": "A dramatized history of the reign of Queen Elizabeth II and the personal and political events that shaped the second half of the 20th century.",
+    "Rating": 8.7,
+    "Watched": false
+  },
+  {
+    "Seasons": 3,
+    "Episodes": 24,
+    "Id": 5,
+    "Title": "The Mandalorian",
+    "Genre": "Action, Adventure, Sci-Fi",
+    "ReleaseYear": 2019,
+    "Director": "",
+    "Description": "A lone bounty hunter in the outer reaches of the galaxy protects a mysterious child while navigating danger and shifting alliances.",
+    "Rating": 8.8,
+    "Watched": false
+  },
+  {
+    "Seasons": 4,
+    "Episodes": 86,
+    "Id": 7,
+    "Title": "Kim Possible",
+    "Genre": "Animation, Action \u0026 Adventure, Comedy, Kids",
+    "ReleaseYear": 2002,
+    "Director": "Unknown",
+    "Description": "If there\u0027s danger or trouble, Kim Possible is there on the double to save the world from villains... and still make it home in time for cheerleading practice! Luckily, Kim has her sidekick Ron Stoppable and his pet naked mole-rat Rufus by her side.",
+    "Rating": 7.515,
+    "Watched": true
+  },
+  {
+    "Seasons": 1,
+    "Episodes": 120,
+    "Id": 8,
+    "Title": "Welcome to Pooh Corner",
+    "Genre": "Family",
+    "ReleaseYear": 1983,
+    "Director": "Unknown",
+    "Description": "Welcome to Pooh Corner is a live-action/puppet television series that aired on Disney Channel, featuring the characters from the Winnie the Pooh universe portrayed by actors in human-sized puppet suits, except Roo, who was originally a traditional puppet. The animatronic costumes used for the characters were created by Alchemy II, Inc., headed by Ken Forsse who later created the toy sensation Teddy Ruxpin. It was first aired on April 18, 1983, the day Disney Channel was launched, being the first Disney Channel Original Series. Its timeslot for its early run was at 7 AM Eastern Time, making it the first program of the Disney Channel\u0027s 16 hour programming day. The series was partially Disney Channel\u0027s first original series.\n\nHal Smith, Will Ryan, and Laurie Main were the only three actors from the original four Pooh shorts to reprise their roles here. The show\u0027s title derives from the second Winnie the Pooh storybook, The House at Pooh Corner.",
+    "Rating": 7,
+    "Watched": false
+  }
+]

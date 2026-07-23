@@ -1,0 +1,62 @@
+[
+  {
+    "Id": 1,
+    "Title": "Inception",
+    "Genre": "Science Fiction",
+    "ReleaseYear": 2010,
+    "Director": "Christopher Nolan",
+    "Description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    "Rating": 8.8,
+    "Watched": true
+  },
+  {
+    "Id": 2,
+    "Title": "The Shawshank Redemption",
+    "Genre": "Drama",
+    "ReleaseYear": 1994,
+    "Director": "Frank Darabont",
+    "Description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "Rating": 9.3,
+    "Watched": true
+  },
+  {
+    "Id": 3,
+    "Title": "The Godfather",
+    "Genre": "Crime",
+    "ReleaseYear": 1972,
+    "Director": "Francis Ford Coppola",
+    "Description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    "Rating": 9.2,
+    "Watched": true
+  },
+  {
+    "Id": 4,
+    "Title": "The Dark Knight",
+    "Genre": "Action",
+    "ReleaseYear": 2008,
+    "Director": "Christopher Nolan",
+    "Description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
+    "Rating": 9,
+    "Watched": true
+  },
+  {
+    "Id": 5,
+    "Title": "Pulp Fiction",
+    "Genre": "Crime",
+    "ReleaseYear": 1994,
+    "Director": "Quentin Tarantino",
+    "Description": "The lives of two mob hitmen, a boxer, a gangster\u0027s wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+    "Rating": 8.9,
+    "Watched": true
+  },
+  {
+    "Id": 7,
+    "Title": "Winnie-the-Pooh: Blood and Honey 2",
+    "Genre": "Horror, Thriller",
+    "ReleaseYear": 2024,
+    "Director": "Rhys Frake-Waterfield",
+    "Description": "Five months following the murders, Christopher Robin struggles to maintain a regular life while dealing with PTSD. However, deep within the 100-Acre-Wood, a destructive rage grows as Pooh, Piglet, Owl, and Tigger find their home and their lives endangered after their existence is revealed.",
+    "Rating": 5.79,
+    "Watched": false
+  }
+]

@@ -84,7 +84,12 @@ public class TmdbService
 
         TmdbDirector? director = credits.Crew.FirstOrDefault(person => person.Job.Equals("Director", StringComparison.OrdinalIgnoreCase));
         string genres = string.Join(", ", details.Genres.Select(genre => genre.Name));
-        int releaseYear = DateTime.Parse(details.ReleaseDate).Year;
+        int releaseYear = 0;
+
+        if (DateTime.TryParse(details.ReleaseDate, out DateTime releaseDate))
+        {
+            releaseYear = releaseDate.Year;
+        }
 
         return new Movie
         {
@@ -164,7 +169,12 @@ public class TmdbService
 
         string genres = string.Join(", ", details.Genres.Select(g => g.Name));
 
-        int releaseYear = DateTime.Parse(details.FirstAirDate).Year;
+        int releaseYear = 0;
+
+        if (DateTime.TryParse(details.FirstAirDate, out DateTime firstAirDate))
+        {
+            releaseYear = firstAirDate.Year;
+        }
 
         return new TvSeries
         {

@@ -16,12 +16,12 @@ public static class MediaMenuHelper
         Console.WriteLine($"Watched: {(media.Watched ? "Yes" : "No")}");
     }
 
-    public static void EditMedia<T>(IMediaService<T> mediaService)
+    public static T? SelectMedia<T>(IMediaService<T> mediaService, string action)
     where T : Media
     {
         Console.Clear();
 
-        Console.WriteLine("========== EDIT ==========");
+        Console.WriteLine($"========== {action} ==========");
         Console.WriteLine();
 
         List<T> mediaItems = mediaService.GetAll();
@@ -29,52 +29,7 @@ public static class MediaMenuHelper
         if (mediaItems.Count == 0)
         {
             Console.WriteLine("No items found.");
-            return;
-        }
-
-        for (int i = 0; i < mediaItems.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {mediaItems[i].Title}");
-        }
-
-        Console.WriteLine();
-
-        int choice = ConsoleInput.ReadInt(
-            $"Select an item (1-{mediaItems.Count}): ",
-            1,
-            mediaItems.Count
-        );
-        T selectedItem = mediaItems[choice - 1];
-
-        Console.WriteLine();
-        Console.WriteLine($"Title: {selectedItem.Title}");
-        Console.WriteLine($"Current watched status: {(selectedItem.Watched ? "Yes" : "No")}");
-        Console.WriteLine();
-
-        selectedItem.Watched = ConsoleInput.ReadYesNo(
-            "Have you watched this? (Y/N): "
-        );
-
-        mediaService.Update(selectedItem);
-
-        Console.WriteLine();
-        Console.WriteLine("Updated successfully!");
-    }
-
-    public static void DeleteMedia<T>(IMediaService<T> mediaService)
-    where T : Media
-    {
-        Console.Clear();
-
-        Console.WriteLine("========== DELETE ==========");
-        Console.WriteLine();
-
-        List<T> mediaItems = mediaService.GetAll();
-
-        if (mediaItems.Count == 0)
-        {
-            Console.WriteLine("No items found.");
-            return;
+            return null;
         }
 
         for (int i = 0; i < mediaItems.Count; i++)
@@ -90,21 +45,6 @@ public static class MediaMenuHelper
             mediaItems.Count
         );
 
-        T selectedItem = mediaItems[choice - 1];
-
-        bool confirm = ConsoleInput.ReadYesNo(
-            $"Delete '{selectedItem.Title}'? (Y/N): "
-        );
-
-        if (confirm)
-        {
-            mediaService.Delete(selectedItem.Id);
-            Console.WriteLine("Deleted successfully!");
-        }
-        else
-        {
-            Console.WriteLine("Deletion cancelled.");
-        }
+        return mediaItems[choice - 1];
     }
-
 }
