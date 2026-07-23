@@ -111,18 +111,20 @@ dotnet run --project CineVault.CLI
 
 ## Architecture
 
-The project uses a generic service layer.
-
 ```
-MediaService<T>
-        ▲
-        │
- ┌──────────────┐
- │              │
-MovieService  TvSeriesService
+           IMediaService<T>
+                  ▲
+                  │
+          MediaService<T>
+                  ▲
+          ┌───────┴────────┐
+          │                │
+    MovieService     TvSeriesService
 ```
 
-Both services inherit common CRUD functionality while maintaining their own JSON storage.
+- `IMediaService<T>` defines the CRUD contract.
+- `MediaService<T>` provides the shared generic CRUD implementation.
+- `MovieService` and `TvSeriesService` inherit from `MediaService<T>` and handle movie/TV-specific functionality such as JSON persistence and seed data.
 
 ---
 
