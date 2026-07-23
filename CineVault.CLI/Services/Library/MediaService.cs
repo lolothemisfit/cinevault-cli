@@ -43,4 +43,16 @@ public class MediaService<T> : IMediaService<T>
             _items.Remove(item);
         }
     }
+
+    protected int GetNextId()
+    {
+        List<T> items = GetAll();
+
+        if (items.Count == 0)
+        {
+            return 1;
+        }
+
+        return items.Max(item => item.Id) + 1;
+    }
 }

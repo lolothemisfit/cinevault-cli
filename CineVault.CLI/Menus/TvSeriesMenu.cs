@@ -230,36 +230,64 @@ public static class TvSeriesMenu
 
         if (addTvSeries)
         {
-            tvSeries.Watched = ConsoleInput.ReadYesNo("Have you watched this movie? (Y/N): ");
+            tvSeries.Watched = ConsoleInput.ReadYesNo("Have you watched this TV series? (Y/N): ");
             tvSeriesService.AddTvSeries(tvSeries);
-            Console.WriteLine("Movie Added Successfully!");
+            Console.WriteLine("TV Series Added Successfully!");
         }
         else
         {
             Console.WriteLine("TV series not added.");
         }
-        Pause();
-        
+        Pause();  
     }
 
     public static void EditTvSeries(TvSeriesService tvSeriesService)
     {
-        Console.Clear();
-        Console.WriteLine("========== EDIT TV SERIES ==========");
+        TvSeries? tvSeries = MediaMenuHelper.SelectMedia(tvSeriesService, "EDIT");
+
+        if (tvSeries == null)
+        {
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"Title: {tvSeries.Title}");
+        Console.WriteLine($"Current watched status: {(tvSeries.Watched ? "Yes" : "No")}");
         Console.WriteLine();
 
-        MediaMenuHelper.EditMedia(tvSeriesService);
-        Pause();
+        tvSeries.Watched = ConsoleInput.ReadYesNo(
+            "Have you watched this? (Y/N): "
+        );
+
+        tvSeriesService.UpdateTvSeries(tvSeries);
+
+        Console.WriteLine();
+        Console.WriteLine("Updated successfully!");
     }
 
     public static void DeleteTvSeries(TvSeriesService tvSeriesService)
     {
-        Console.Clear();
-        Console.WriteLine("=========== DELETE TV SERIES ==========");
-        Console.WriteLine();
+        TvSeries? tvSeries = MediaMenuHelper.SelectMedia(tvSeriesService, "DELETE");
 
-        MediaMenuHelper.DeleteMedia(tvSeriesService);
-        Pause();
+        if (tvSeries == null)
+        {
+            return;
+        }
+
+        bool confirm = ConsoleInput.ReadYesNo(
+            $"Delete '{tvSeries.Title}'? (Y/N): "
+        );
+
+        if (confirm)
+        {
+            tvSeriesService.DeleteTvSeries(tvSeries.Id);
+
+            Console.WriteLine("Deleted successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Deletion cancelled.");
+        }
     }
 
     public static void Pause()

@@ -1,11 +1,26 @@
 using CineVault.CLI.Models;
 using CineVault.CLI.Services.Library;
+using CineVault.CLI.Services.Storage;
+
 
 public class TvSeriesService : MediaService<TvSeries> {
    
-
+    private readonly JsonStorageService _storage = new JsonStorageService();
+    private const string FilePath ="CineVault.CLI/Data/tvseries.json";
     public TvSeriesService() {
-        seedTvSeries();
+        List<TvSeries> tvSeries = _storage.Load<TvSeries>(FilePath);
+
+        if (tvSeries.Count == 0) {
+            seedTvSeries();
+            SaveChanges();
+        } 
+        else 
+        {
+            foreach (TvSeries series in tvSeries)
+            {
+                Add(series);
+            }
+        }
     }
 
     private void seedTvSeries() {
@@ -78,22 +93,23 @@ public class TvSeriesService : MediaService<TvSeries> {
     }
 
     public void AddTvSeries(TvSeries tvSeries) {
+        tvSeries.Id = GetNextId();
         Add(tvSeries);
+        SaveChanges();
     }
 
     public void UpdateTvSeries(TvSeries tvSeries) {
-        TvSeries? existingTvSeries = GetById(tvSeries.Id);
-        
-        if (existingTvSeries != null) {
-            existingTvSeries.Watched = tvSeries.Watched;
-        }
+        tvSeries.Id = GetNextId();
+        Update(tvSeries);
+        SaveChanges();
     }
 
     public void DeleteTvSeries(int id) {
-        TvSeries? tvSeriesToDelete = GetById(id);
-        
-        if (tvSeriesToDelete != null) {
-            Delete(id);
-        }
+        Delete(id);
+        SaveChanges();
+    }
+    private void SaveChanges()
+    {
+        _storage.Save(FilePath, GetAll());
     }
 }

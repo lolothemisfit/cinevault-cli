@@ -1,31 +1,144 @@
 # CineVault CLI
 
-A console-based media management application built with C# and .NET.
+A command-line application for managing a personal movie and TV series library built with C# and .NET 8.
 
-## About
+Users can browse their collection, add movies and TV series, update watched status, delete entries, and search The Movie Database (TMDB) for new titles. All data is persisted locally using JSON files.
 
-CineVault CLI is a learning project focused on building a production-quality console application while strengthening my understanding of C#, object-oriented programming, .NET, and software engineering principles.
+---
 
-The application serves as the foundation for a future full-stack version of CineVault, which will be built using ASP.NET Core, React, and TypeScript.
+## Features
 
-## Planned Features
+- View movies and TV series
+- Add movies and TV series manually
+- Search and import movies from TMDB
+- Search and import TV series from TMDB
+- Update watched status
+- Delete movies and TV series
+- Persistent local storage using JSON
+- Generic media service architecture
 
-- Movie management
-- TV show management
-- Music library
-- Search functionality
-- Watchlists
-- Reviews and ratings
-- File persistence
-- Database integration (future)
+---
 
-## Tech Stack
+## Technologies
 
 - C#
-- .NET
-- Git
-- GitHub
+- .NET 8
+- System.Text.Json
+- TMDB API
+- Generic Collections
+- Object-Oriented Programming
 
-## Status
+---
 
-🚧 In Development
+## Project Structure
+
+```
+CineVault.CLI
+│
+├── Menus/
+├── Models/
+├── Services/
+│   ├── External/
+│   ├── Library/
+|   ├── Search/
+│   └── Storage/
+├── Utilities/
+├── Data/
+│   ├── movies.json
+│   └── tvseries.json
+└── Program.cs
+```
+
+---
+
+## Storage
+
+Movie and TV series data is stored locally in JSON format.
+
+```
+Data/
+├── movies.json
+└── tvseries.json
+```
+
+The files are automatically created when the application runs for the first time.
+
+---
+
+## Running the Project
+
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/cinevault-cli.git
+```
+
+Navigate into the project
+
+```bash
+cd cinevault-cli
+```
+
+Run the application
+
+```bash
+dotnet run --project CineVault.CLI
+```
+
+---
+
+## Functionality
+
+### Movies
+
+- View all movies
+- Search TMDB
+- Search My Movie List
+- Add movies
+- Edit watched status
+- Delete movies
+
+### TV Series
+
+- View all TV series
+- Search TMDB
+- Search My TV Series List
+- Add TV series
+- Edit watched status
+- Delete TV series
+
+---
+
+## Architecture
+
+The project uses a generic service layer.
+
+```
+MediaService<T>
+        ▲
+        │
+ ┌──────────────┐
+ │              │
+MovieService  TvSeriesService
+```
+
+Both services inherit common CRUD functionality while maintaining their own JSON storage.
+
+---
+
+## Future Improvements
+
+- Mark favourites
+- Filter by genre
+- Sort by rating or release year
+- Pagination
+- Unit testing
+- SQLite database support
+- User authentication
+- Export/import library
+
+---
+
+## Author
+
+Lelona Ntshiba

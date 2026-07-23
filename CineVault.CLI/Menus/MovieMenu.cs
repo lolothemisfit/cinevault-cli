@@ -236,28 +236,53 @@ public static class MovieMenu
         Pause();
     }
 
-    public static void EditMovie(MovieService movieService)
+    private static void EditMovie(MovieService movieService)
     {
-        Console.Clear();
+        Movie? movie = MediaMenuHelper.SelectMedia(movieService, "EDIT");
 
-        Console.WriteLine("========== EDIT MOVIE ==========");
+        if (movie == null)
+        {
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"Title: {movie.Title}");
+        Console.WriteLine($"Current watched status: {(movie.Watched ? "Yes" : "No")}");
         Console.WriteLine();
 
-        MediaMenuHelper.EditMedia(movieService);
-        Pause();
+        movie.Watched = ConsoleInput.ReadYesNo(
+            "Have you watched this? (Y/N): "
+        );
 
+        movieService.UpdateMovie(movie);
+
+        Console.WriteLine();
+        Console.WriteLine("Updated successfully!");
     }
 
     public static void DeleteMovie(MovieService movieService)
     {
-        Console.Clear();
+        Movie? movie = MediaMenuHelper.SelectMedia(movieService, "DELETE");
 
-        Console.WriteLine("========== DELETE MOVIE ==========");
-        Console.WriteLine();
+        if (movie == null)
+        {
+            return;
+        }
 
-        MediaMenuHelper.DeleteMedia(movieService);
+        bool confirm = ConsoleInput.ReadYesNo(
+            $"Delete '{movie.Title}'? (Y/N): "
+        );
 
-        Pause();
+        if (confirm)
+        {
+            movieService.DeleteMovie(movie.Id);
+
+            Console.WriteLine("Deleted successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Deletion cancelled.");
+        }
     }
 
     private static void Pause()
