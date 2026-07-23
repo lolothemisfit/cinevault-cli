@@ -238,8 +238,7 @@ public static class TvSeriesMenu
         {
             Console.WriteLine("TV series not added.");
         }
-        Pause();
-        
+        Pause();  
     }
 
     public static void EditTvSeries(TvSeriesService tvSeriesService)
